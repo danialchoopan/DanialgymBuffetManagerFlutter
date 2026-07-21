@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:vazirmatn/vazirmatn.dart';
 import 'colors.dart';
-import 'typography.dart';
-import 'dimensions.dart';
 
 class AppTheme {
   AppTheme._();
@@ -14,7 +13,9 @@ class AppTheme {
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.light,
-      fontFamily: AppTypography.persianFont,
+      
+      // Use Vazirmatn as default font
+      fontFamily: Vazirmatn.fontFamily,
 
       // Color Scheme
       colorScheme: const ColorScheme.light(
@@ -43,18 +44,84 @@ class AppTheme {
       // Scaffold
       scaffoldBackgroundColor: AppColors.backgroundLight,
 
+      // Text Theme with Vazirmatn
+      textTheme: const TextTheme(
+        displayLarge: TextStyle(
+          fontFamily: 'Vazirmatn',
+          fontWeight: FontWeight.w700,
+        ),
+        displayMedium: TextStyle(
+          fontFamily: 'Vazirmatn',
+          fontWeight: FontWeight.w700,
+        ),
+        displaySmall: TextStyle(
+          fontFamily: 'Vazirmatn',
+          fontWeight: FontWeight.w700,
+        ),
+        headlineLarge: TextStyle(
+          fontFamily: 'Vazirmatn',
+          fontWeight: FontWeight.w600,
+        ),
+        headlineMedium: TextStyle(
+          fontFamily: 'Vazirmatn',
+          fontWeight: FontWeight.w600,
+        ),
+        headlineSmall: TextStyle(
+          fontFamily: 'Vazirmatn',
+          fontWeight: FontWeight.w600,
+        ),
+        titleLarge: TextStyle(
+          fontFamily: 'Vazirmatn',
+          fontWeight: FontWeight.w600,
+        ),
+        titleMedium: TextStyle(
+          fontFamily: 'Vazirmatn',
+          fontWeight: FontWeight.w500,
+        ),
+        titleSmall: TextStyle(
+          fontFamily: 'Vazirmatn',
+          fontWeight: FontWeight.w500,
+        ),
+        bodyLarge: TextStyle(
+          fontFamily: 'Vazirmatn',
+          fontWeight: FontWeight.w400,
+        ),
+        bodyMedium: TextStyle(
+          fontFamily: 'Vazirmatn',
+          fontWeight: FontWeight.w400,
+        ),
+        bodySmall: TextStyle(
+          fontFamily: 'Vazirmatn',
+          fontWeight: FontWeight.w400,
+        ),
+        labelLarge: TextStyle(
+          fontFamily: 'Vazirmatn',
+          fontWeight: FontWeight.w500,
+        ),
+        labelMedium: TextStyle(
+          fontFamily: 'Vazirmatn',
+          fontWeight: FontWeight.w500,
+        ),
+        labelSmall: TextStyle(
+          fontFamily: 'Vazirmatn',
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+
       // App Bar
       appBarTheme: AppBarTheme(
-        elevation: AppElevation.none,
+        elevation: 0,
         centerTitle: false,
         backgroundColor: AppColors.primary,
         foregroundColor: AppColors.white,
-        titleTextStyle: AppTypography.headlineMedium.copyWith(
+        titleTextStyle: Vazirmatn.style(
+          fontSize: 18,
+          fontWeight: FontWeight.w600,
           color: AppColors.white,
         ),
         iconTheme: const IconThemeData(
           color: AppColors.white,
-          size: AppIconSize.lg,
+          size: 24,
         ),
         systemOverlayStyle: const SystemUiOverlayStyle(
           statusBarColor: AppColors.primaryDark,
@@ -68,12 +135,14 @@ class AppTheme {
         selectedItemColor: AppColors.primary,
         unselectedItemColor: AppColors.gray500,
         type: BottomNavigationBarType.fixed,
-        elevation: AppElevation.lg,
+        elevation: 8,
         selectedLabelStyle: TextStyle(
+          fontFamily: 'Vazirmatn',
           fontSize: 12,
           fontWeight: FontWeight.w600,
         ),
         unselectedLabelStyle: TextStyle(
+          fontFamily: 'Vazirmatn',
           fontSize: 11,
           fontWeight: FontWeight.normal,
         ),
@@ -81,14 +150,14 @@ class AppTheme {
 
       // Cards
       cardTheme: CardTheme(
-        elevation: AppElevation.sm,
+        elevation: 2,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppBorderRadius.md),
+          borderRadius: BorderRadius.circular(12),
         ),
         color: AppColors.white,
         margin: const EdgeInsets.symmetric(
-          horizontal: AppSpacing.lg,
-          vertical: AppSpacing.sm,
+          horizontal: 16,
+          vertical: 8,
         ),
       ),
 
@@ -97,13 +166,15 @@ class AppTheme {
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.primary,
           foregroundColor: AppColors.white,
-          minimumSize: const Size(AppButton.minWidth, AppButton.heightLG),
-          padding: AppButton.paddingLG,
+          minimumSize: const Size(64, 48),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(AppButton.borderRadius),
+            borderRadius: BorderRadius.circular(8),
           ),
-          elevation: AppElevation.sm,
-          textStyle: AppTypography.titleMedium.copyWith(
+          elevation: 2,
+          textStyle: Vazirmatn.style(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
             color: AppColors.white,
           ),
         ),
@@ -111,13 +182,15 @@ class AppTheme {
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
           foregroundColor: AppColors.primary,
-          minimumSize: const Size(AppButton.minWidth, AppButton.heightLG),
-          padding: AppButton.paddingLG,
+          minimumSize: const Size(64, 48),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(AppButton.borderRadius),
+            borderRadius: BorderRadius.circular(8),
           ),
           side: const BorderSide(color: AppColors.primary, width: 1),
-          textStyle: AppTypography.titleMedium.copyWith(
+          textStyle: Vazirmatn.style(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
             color: AppColors.primary,
           ),
         ),
@@ -125,116 +198,101 @@ class AppTheme {
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
           foregroundColor: AppColors.primary,
-          padding: AppButton.paddingMD,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(AppButton.borderRadius),
+            borderRadius: BorderRadius.circular(8),
           ),
-          textStyle: AppTypography.titleMedium.copyWith(
+          textStyle: Vazirmatn.style(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
             color: AppColors.primary,
           ),
         ),
-      ),
-      iconButtonTheme: IconButtonThemeData(
-        style: IconButton.styleFrom(
-          foregroundColor: AppColors.primary,
-        ),
-      ),
-      floatingActionButtonTheme: const FloatingActionButtonThemeData(
-        backgroundColor: AppColors.primary,
-        foregroundColor: AppColors.white,
-        elevation: AppElevation.lg,
-        shape: CircleBorder(),
       ),
 
       // Text Fields
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: AppColors.white,
-        contentPadding: AppInput.contentPadding,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(AppInput.borderRadius),
+          borderRadius: BorderRadius.circular(8),
           borderSide: const BorderSide(
             color: AppColors.gray300,
-            width: AppInput.borderWidth,
+            width: 1,
           ),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(AppInput.borderRadius),
+          borderRadius: BorderRadius.circular(8),
           borderSide: const BorderSide(
             color: AppColors.gray300,
-            width: AppInput.borderWidth,
+            width: 1,
           ),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(AppInput.borderRadius),
+          borderRadius: BorderRadius.circular(8),
           borderSide: const BorderSide(
             color: AppColors.primary,
-            width: AppInput.borderWidthFocus,
+            width: 2,
           ),
         ),
         errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(AppInput.borderRadius),
+          borderRadius: BorderRadius.circular(8),
           borderSide: const BorderSide(
             color: AppColors.error,
-            width: AppInput.borderWidth,
+            width: 1,
           ),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(AppInput.borderRadius),
+          borderRadius: BorderRadius.circular(8),
           borderSide: const BorderSide(
             color: AppColors.error,
-            width: AppInput.borderWidthFocus,
+            width: 2,
           ),
         ),
-        labelStyle: AppTypography.bodyMedium.copyWith(
+        labelStyle: Vazirmatn.style(
+          fontSize: 12,
+          fontWeight: FontWeight.w400,
           color: AppColors.gray600,
         ),
-        hintStyle: AppTypography.bodyMedium.copyWith(
+        hintStyle: Vazirmatn.style(
+          fontSize: 12,
+          fontWeight: FontWeight.w400,
           color: AppColors.gray400,
         ),
-        prefixIconColor: AppColors.gray500,
-        suffixIconColor: AppColors.gray500,
       ),
 
       // Dialogs
       dialogTheme: DialogTheme(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppDialog.borderRadius),
+          borderRadius: BorderRadius.circular(16),
         ),
         backgroundColor: AppColors.white,
-        elevation: AppDialog.elevation,
-        titleTextStyle: AppTypography.headlineMedium.copyWith(
+        elevation: 8,
+        titleTextStyle: Vazirmatn.style(
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
           color: AppColors.gray900,
         ),
-        contentTextStyle: AppTypography.bodyLarge.copyWith(
+        contentTextStyle: Vazirmatn.style(
+          fontSize: 14,
+          fontWeight: FontWeight.w400,
           color: AppColors.gray700,
         ),
-      ),
-
-      // Bottom Sheet
-      bottomSheetTheme: const BottomSheetThemeData(
-        backgroundColor: AppColors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            top: Radius.circular(AppBottomSheet.borderRadius),
-          ),
-        ),
-        elevation: AppBottomSheet.elevation,
-        modalBackgroundColor: AppColors.white,
-        modalBarrierColor: Colors.black54,
       ),
 
       // Snack Bar
       snackBarTheme: SnackBarThemeData(
         backgroundColor: AppColors.gray800,
-        contentTextStyle: AppTypography.bodyLarge.copyWith(
+        contentTextStyle: Vazirmatn.style(
+          fontSize: 14,
+          fontWeight: FontWeight.w400,
           color: AppColors.white,
         ),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppSnackBar.borderRadius),
+          borderRadius: BorderRadius.circular(8),
         ),
         behavior: SnackBarBehavior.floating,
-        elevation: AppSnackBar.elevation,
       ),
 
       // Chips
@@ -242,13 +300,13 @@ class AppTheme {
         backgroundColor: AppColors.gray100,
         selectedColor: AppColors.primary,
         disabledColor: AppColors.gray200,
-        labelStyle: AppTypography.labelLarge,
-        secondaryLabelStyle: AppTypography.labelLarge.copyWith(
-          color: AppColors.white,
+        labelStyle: Vazirmatn.style(
+          fontSize: 12,
+          fontWeight: FontWeight.w500,
         ),
-        padding: AppChip.padding,
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppChip.borderRadius),
+          borderRadius: BorderRadius.circular(16),
         ),
         side: const BorderSide(color: AppColors.gray300),
       ),
@@ -256,92 +314,28 @@ class AppTheme {
       // Divider
       dividerTheme: const DividerThemeData(
         color: AppColors.gray200,
-        thickness: AppDivider.thickness,
-        space: AppDivider.height,
-        indent: AppDivider.indent,
-        endIndent: AppDivider.endIndent,
-      ),
-
-      // Switch
-      switchTheme: SwitchThemeData(
-        thumbColor: MaterialStateProperty.resolveWith((states) {
-          if (states.contains(MaterialState.selected)) {
-            return AppColors.white;
-          }
-          return AppColors.gray400;
-        }),
-        trackColor: MaterialStateProperty.resolveWith((states) {
-          if (states.contains(MaterialState.selected)) {
-            return AppColors.primary;
-          }
-          return AppColors.gray300;
-        }),
-      ),
-
-      // Checkbox
-      checkboxTheme: CheckboxThemeData(
-        fillColor: MaterialStateProperty.resolveWith((states) {
-          if (states.contains(MaterialState.selected)) {
-            return AppColors.primary;
-          }
-          return AppColors.white;
-        }),
-        side: const BorderSide(color: AppColors.gray400),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppCheckbox.borderRadius),
-        ),
-      ),
-
-      // Radio
-      radioTheme: RadioThemeData(
-        fillColor: MaterialStateProperty.resolveWith((states) {
-          if (states.contains(MaterialState.selected)) {
-            return AppColors.primary;
-          }
-          return AppColors.gray400;
-        }),
-      ),
-
-      // Progress Indicator
-      progressIndicatorTheme: const ProgressIndicatorThemeData(
-        color: AppColors.primary,
-        linearTrackColor: AppColors.gray200,
-        circularTrackColor: AppColors.gray200,
-      ),
-
-      // Tab Bar
-      tabBarTheme: TabBarTheme(
-        labelColor: AppColors.white,
-        unselectedLabelColor: AppColors.white70,
-        indicatorColor: AppColors.white,
-        labelStyle: AppTypography.titleMedium.copyWith(
-          color: AppColors.white,
-        ),
-        unselectedLabelStyle: AppTypography.titleMedium.copyWith(
-          color: AppColors.white70,
-        ),
-      ),
-
-      // Drawer
-      drawerTheme: const DrawerThemeData(
-        backgroundColor: AppColors.white,
-        elevation: AppElevation.xxl,
-        shape: RoundedRectangleBorder(),
+        thickness: 1,
+        space: 1,
+        indent: 16,
+        endIndent: 16,
       ),
 
       // List Tile
       listTileTheme: ListTileThemeData(
         contentPadding: const EdgeInsets.symmetric(
-          horizontal: AppSpacing.lg,
-          vertical: AppSpacing.xs,
+          horizontal: 16,
+          vertical: 4,
         ),
-        titleTextStyle: AppTypography.bodyLarge.copyWith(
+        titleTextStyle: Vazirmatn.style(
+          fontSize: 14,
+          fontWeight: FontWeight.w400,
           color: AppColors.gray900,
         ),
-        subtitleTextStyle: AppTypography.bodyMedium.copyWith(
+        subtitleTextStyle: Vazirmatn.style(
+          fontSize: 12,
+          fontWeight: FontWeight.w400,
           color: AppColors.gray600,
         ),
-        leadingAndTrailingTextStyle: AppTypography.bodyLarge,
         iconColor: AppColors.gray600,
       ),
     );
@@ -354,7 +348,9 @@ class AppTheme {
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.dark,
-      fontFamily: AppTypography.persianFont,
+      
+      // Use Vazirmatn as default font
+      fontFamily: Vazirmatn.fontFamily,
 
       // Color Scheme
       colorScheme: const ColorScheme.dark(
@@ -383,18 +379,99 @@ class AppTheme {
       // Scaffold
       scaffoldBackgroundColor: AppColors.backgroundDark,
 
+      // Text Theme with Vazirmatn
+      textTheme: const TextTheme(
+        displayLarge: TextStyle(
+          fontFamily: 'Vazirmatn',
+          fontWeight: FontWeight.w700,
+          color: AppColors.white,
+        ),
+        displayMedium: TextStyle(
+          fontFamily: 'Vazirmatn',
+          fontWeight: FontWeight.w700,
+          color: AppColors.white,
+        ),
+        displaySmall: TextStyle(
+          fontFamily: 'Vazirmatn',
+          fontWeight: FontWeight.w700,
+          color: AppColors.white,
+        ),
+        headlineLarge: TextStyle(
+          fontFamily: 'Vazirmatn',
+          fontWeight: FontWeight.w600,
+          color: AppColors.white,
+        ),
+        headlineMedium: TextStyle(
+          fontFamily: 'Vazirmatn',
+          fontWeight: FontWeight.w600,
+          color: AppColors.white,
+        ),
+        headlineSmall: TextStyle(
+          fontFamily: 'Vazirmatn',
+          fontWeight: FontWeight.w600,
+          color: AppColors.white,
+        ),
+        titleLarge: TextStyle(
+          fontFamily: 'Vazirmatn',
+          fontWeight: FontWeight.w600,
+          color: AppColors.white,
+        ),
+        titleMedium: TextStyle(
+          fontFamily: 'Vazirmatn',
+          fontWeight: FontWeight.w500,
+          color: AppColors.white,
+        ),
+        titleSmall: TextStyle(
+          fontFamily: 'Vazirmatn',
+          fontWeight: FontWeight.w500,
+          color: AppColors.white,
+        ),
+        bodyLarge: TextStyle(
+          fontFamily: 'Vazirmatn',
+          fontWeight: FontWeight.w400,
+          color: AppColors.white,
+        ),
+        bodyMedium: TextStyle(
+          fontFamily: 'Vazirmatn',
+          fontWeight: FontWeight.w400,
+          color: AppColors.white,
+        ),
+        bodySmall: TextStyle(
+          fontFamily: 'Vazirmatn',
+          fontWeight: FontWeight.w400,
+          color: AppColors.gray400,
+        ),
+        labelLarge: TextStyle(
+          fontFamily: 'Vazirmatn',
+          fontWeight: FontWeight.w500,
+          color: AppColors.white,
+        ),
+        labelMedium: TextStyle(
+          fontFamily: 'Vazirmatn',
+          fontWeight: FontWeight.w500,
+          color: AppColors.white,
+        ),
+        labelSmall: TextStyle(
+          fontFamily: 'Vazirmatn',
+          fontWeight: FontWeight.w500,
+          color: AppColors.gray400,
+        ),
+      ),
+
       // App Bar
       appBarTheme: AppBarTheme(
-        elevation: AppElevation.none,
+        elevation: 0,
         centerTitle: false,
         backgroundColor: AppColors.surfaceDark,
         foregroundColor: AppColors.white,
-        titleTextStyle: AppTypography.headlineMedium.copyWith(
+        titleTextStyle: Vazirmatn.style(
+          fontSize: 18,
+          fontWeight: FontWeight.w600,
           color: AppColors.white,
         ),
         iconTheme: const IconThemeData(
           color: AppColors.white,
-          size: AppIconSize.lg,
+          size: 24,
         ),
         systemOverlayStyle: const SystemUiOverlayStyle(
           statusBarColor: AppColors.surfaceDark,
@@ -408,19 +485,19 @@ class AppTheme {
         selectedItemColor: AppColors.primaryLight,
         unselectedItemColor: AppColors.gray500,
         type: BottomNavigationBarType.fixed,
-        elevation: AppElevation.lg,
+        elevation: 8,
       ),
 
       // Cards
       cardTheme: CardTheme(
-        elevation: AppElevation.sm,
+        elevation: 2,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppBorderRadius.md),
+          borderRadius: BorderRadius.circular(12),
         ),
         color: AppColors.cardDark,
         margin: const EdgeInsets.symmetric(
-          horizontal: AppSpacing.lg,
-          vertical: AppSpacing.sm,
+          horizontal: 16,
+          vertical: 8,
         ),
       ),
 
@@ -429,32 +506,23 @@ class AppTheme {
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.primaryLight,
           foregroundColor: AppColors.black,
-          minimumSize: const Size(AppButton.minWidth, AppButton.heightLG),
-          padding: AppButton.paddingLG,
+          minimumSize: const Size(64, 48),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(AppButton.borderRadius),
+            borderRadius: BorderRadius.circular(8),
           ),
-          elevation: AppElevation.sm,
+          elevation: 2,
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
           foregroundColor: AppColors.primaryLight,
-          minimumSize: const Size(AppButton.minWidth, AppButton.heightLG),
-          padding: AppButton.paddingLG,
+          minimumSize: const Size(64, 48),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(AppButton.borderRadius),
+            borderRadius: BorderRadius.circular(8),
           ),
           side: const BorderSide(color: AppColors.primaryLight, width: 1),
-        ),
-      ),
-      textButtonTheme: TextButtonThemeData(
-        style: TextButton.styleFrom(
-          foregroundColor: AppColors.primaryLight,
-          padding: AppButton.paddingMD,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(AppButton.borderRadius),
-          ),
         ),
       ),
 
@@ -462,39 +530,36 @@ class AppTheme {
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: AppColors.gray800,
-        contentPadding: AppInput.contentPadding,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(AppInput.borderRadius),
+          borderRadius: BorderRadius.circular(8),
           borderSide: const BorderSide(
             color: AppColors.gray600,
-            width: AppInput.borderWidth,
+            width: 1,
           ),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(AppInput.borderRadius),
+          borderRadius: BorderRadius.circular(8),
           borderSide: const BorderSide(
             color: AppColors.gray600,
-            width: AppInput.borderWidth,
+            width: 1,
           ),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(AppInput.borderRadius),
+          borderRadius: BorderRadius.circular(8),
           borderSide: const BorderSide(
             color: AppColors.primaryLight,
-            width: AppInput.borderWidthFocus,
+            width: 2,
           ),
         ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(AppInput.borderRadius),
-          borderSide: const BorderSide(
-            color: AppColors.error,
-            width: AppInput.borderWidth,
-          ),
-        ),
-        labelStyle: AppTypography.bodyMedium.copyWith(
+        labelStyle: Vazirmatn.style(
+          fontSize: 12,
+          fontWeight: FontWeight.w400,
           color: AppColors.gray400,
         ),
-        hintStyle: AppTypography.bodyMedium.copyWith(
+        hintStyle: Vazirmatn.style(
+          fontSize: 12,
+          fontWeight: FontWeight.w400,
           color: AppColors.gray500,
         ),
       ),
@@ -502,37 +567,32 @@ class AppTheme {
       // Dialogs
       dialogTheme: DialogTheme(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppDialog.borderRadius),
+          borderRadius: BorderRadius.circular(16),
         ),
         backgroundColor: AppColors.surfaceDark,
-        elevation: AppDialog.elevation,
-        titleTextStyle: AppTypography.headlineMedium.copyWith(
+        elevation: 8,
+        titleTextStyle: Vazirmatn.style(
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
           color: AppColors.white,
         ),
-        contentTextStyle: AppTypography.bodyLarge.copyWith(
+        contentTextStyle: Vazirmatn.style(
+          fontSize: 14,
+          fontWeight: FontWeight.w400,
           color: AppColors.gray300,
         ),
-      ),
-
-      // Bottom Sheet
-      bottomSheetTheme: const BottomSheetThemeData(
-        backgroundColor: AppColors.surfaceDark,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            top: Radius.circular(AppBottomSheet.borderRadius),
-          ),
-        ),
-        elevation: AppBottomSheet.elevation,
       ),
 
       // Snack Bar
       snackBarTheme: SnackBarThemeData(
         backgroundColor: AppColors.gray200,
-        contentTextStyle: AppTypography.bodyLarge.copyWith(
+        contentTextStyle: Vazirmatn.style(
+          fontSize: 14,
+          fontWeight: FontWeight.w400,
           color: AppColors.black,
         ),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppSnackBar.borderRadius),
+          borderRadius: BorderRadius.circular(8),
         ),
         behavior: SnackBarBehavior.floating,
       ),
@@ -541,12 +601,14 @@ class AppTheme {
       chipTheme: ChipThemeData(
         backgroundColor: AppColors.gray800,
         selectedColor: AppColors.primaryLight,
-        labelStyle: AppTypography.labelLarge.copyWith(
+        labelStyle: Vazirmatn.style(
+          fontSize: 12,
+          fontWeight: FontWeight.w500,
           color: AppColors.white,
         ),
-        padding: AppChip.padding,
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppChip.borderRadius),
+          borderRadius: BorderRadius.circular(16),
         ),
         side: const BorderSide(color: AppColors.gray600),
       ),
@@ -554,61 +616,24 @@ class AppTheme {
       // Divider
       dividerTheme: const DividerThemeData(
         color: AppColors.gray700,
-        thickness: AppDivider.thickness,
-        space: AppDivider.height,
-      ),
-
-      // Switch
-      switchTheme: SwitchThemeData(
-        thumbColor: MaterialStateProperty.resolveWith((states) {
-          if (states.contains(MaterialState.selected)) {
-            return AppColors.black;
-          }
-          return AppColors.gray500;
-        }),
-        trackColor: MaterialStateProperty.resolveWith((states) {
-          if (states.contains(MaterialState.selected)) {
-            return AppColors.primaryLight;
-          }
-          return AppColors.gray600;
-        }),
-      ),
-
-      // Progress Indicator
-      progressIndicatorTheme: const ProgressIndicatorThemeData(
-        color: AppColors.primaryLight,
-        linearTrackColor: AppColors.gray700,
-      ),
-
-      // Tab Bar
-      tabBarTheme: TabBarTheme(
-        labelColor: AppColors.white,
-        unselectedLabelColor: AppColors.gray400,
-        indicatorColor: AppColors.primaryLight,
-        labelStyle: AppTypography.titleMedium.copyWith(
-          color: AppColors.white,
-        ),
-        unselectedLabelStyle: AppTypography.titleMedium.copyWith(
-          color: AppColors.gray400,
-        ),
-      ),
-
-      // Drawer
-      drawerTheme: const DrawerThemeData(
-        backgroundColor: AppColors.surfaceDark,
-        elevation: AppElevation.xxl,
+        thickness: 1,
+        space: 1,
       ),
 
       // List Tile
       listTileTheme: ListTileThemeData(
         contentPadding: const EdgeInsets.symmetric(
-          horizontal: AppSpacing.lg,
-          vertical: AppSpacing.xs,
+          horizontal: 16,
+          vertical: 4,
         ),
-        titleTextStyle: AppTypography.bodyLarge.copyWith(
+        titleTextStyle: Vazirmatn.style(
+          fontSize: 14,
+          fontWeight: FontWeight.w400,
           color: AppColors.white,
         ),
-        subtitleTextStyle: AppTypography.bodyMedium.copyWith(
+        subtitleTextStyle: Vazirmatn.style(
+          fontSize: 12,
+          fontWeight: FontWeight.w400,
           color: AppColors.gray400,
         ),
         iconColor: AppColors.gray400,

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:vazirmatn/vazirmatn.dart';
 
 // ============================================================
-// TYPOGRAPHY SYSTEM
+// TYPOGRAPHY SYSTEM WITH VAZIRMATN FONT
 // ============================================================
 
 class AppTypography {
@@ -12,7 +13,6 @@ class AppTypography {
   // ============================================================
   static const String persianFont = 'Vazirmatn';
   static const String englishFont = 'Roboto';
-  static const String monoFont = 'FiraCode';
 
   // ============================================================
   // FONT WEIGHTS
@@ -27,26 +27,23 @@ class AppTypography {
   // ============================================================
   // DISPLAY STYLES
   // ============================================================
-  static const TextStyle displayLarge = TextStyle(
-    fontFamily: persianFont,
+  static TextStyle displayLarge = Vazirmatn.style(
     fontSize: 34,
-    fontWeight: bold,
+    fontWeight: FontWeight.bold,
     letterSpacing: 0.25,
     height: 1.3,
   );
 
-  static const TextStyle displayMedium = TextStyle(
-    fontFamily: persianFont,
+  static TextStyle displayMedium = Vazirmatn.style(
     fontSize: 28,
-    fontWeight: bold,
+    fontWeight: FontWeight.bold,
     letterSpacing: 0,
     height: 1.3,
   );
 
-  static const TextStyle displaySmall = TextStyle(
-    fontFamily: persianFont,
+  static TextStyle displaySmall = Vazirmatn.style(
     fontSize: 24,
-    fontWeight: bold,
+    fontWeight: FontWeight.bold,
     letterSpacing: 0,
     height: 1.3,
   );
@@ -54,26 +51,23 @@ class AppTypography {
   // ============================================================
   // HEADLINE STYLES
   // ============================================================
-  static const TextStyle headlineLarge = TextStyle(
-    fontFamily: persianFont,
+  static TextStyle headlineLarge = Vazirmatn.style(
     fontSize: 22,
-    fontWeight: semiBold,
+    fontWeight: FontWeight.w600,
     letterSpacing: 0,
     height: 1.4,
   );
 
-  static const TextStyle headlineMedium = TextStyle(
-    fontFamily: persianFont,
+  static TextStyle headlineMedium = Vazirmatn.style(
     fontSize: 20,
-    fontWeight: semiBold,
+    fontWeight: FontWeight.w600,
     letterSpacing: 0,
     height: 1.4,
   );
 
-  static const TextStyle headlineSmall = TextStyle(
-    fontFamily: persianFont,
+  static TextStyle headlineSmall = Vazirmatn.style(
     fontSize: 18,
-    fontWeight: semiBold,
+    fontWeight: FontWeight.w600,
     letterSpacing: 0,
     height: 1.4,
   );
@@ -81,26 +75,23 @@ class AppTypography {
   // ============================================================
   // TITLE STYLES
   // ============================================================
-  static const TextStyle titleLarge = TextStyle(
-    fontFamily: persianFont,
+  static TextStyle titleLarge = Vazirmatn.style(
     fontSize: 16,
-    fontWeight: semiBold,
+    fontWeight: FontWeight.w600,
     letterSpacing: 0.15,
     height: 1.5,
   );
 
-  static const TextStyle titleMedium = TextStyle(
-    fontFamily: persianFont,
+  static TextStyle titleMedium = Vazirmatn.style(
     fontSize: 14,
-    fontWeight: medium,
+    fontWeight: FontWeight.w500,
     letterSpacing: 0.1,
     height: 1.5,
   );
 
-  static const TextStyle titleSmall = TextStyle(
-    fontFamily: persianFont,
+  static TextStyle titleSmall = Vazirmatn.style(
     fontSize: 12,
-    fontWeight: medium,
+    fontWeight: FontWeight.w500,
     letterSpacing: 0.1,
     height: 1.5,
   );
@@ -108,26 +99,23 @@ class AppTypography {
   // ============================================================
   // BODY STYLES
   // ============================================================
-  static const TextStyle bodyLarge = TextStyle(
-    fontFamily: persianFont,
+  static TextStyle bodyLarge = Vazirmatn.style(
     fontSize: 14,
-    fontWeight: regular,
+    fontWeight: FontWeight.w400,
     letterSpacing: 0.25,
     height: 1.6,
   );
 
-  static const TextStyle bodyMedium = TextStyle(
-    fontFamily: persianFont,
+  static TextStyle bodyMedium = Vazirmatn.style(
     fontSize: 12,
-    fontWeight: regular,
+    fontWeight: FontWeight.w400,
     letterSpacing: 0.25,
     height: 1.6,
   );
 
-  static const TextStyle bodySmall = TextStyle(
-    fontFamily: persianFont,
+  static TextStyle bodySmall = Vazirmatn.style(
     fontSize: 11,
-    fontWeight: regular,
+    fontWeight: FontWeight.w400,
     letterSpacing: 0.4,
     height: 1.6,
   );
@@ -135,26 +123,23 @@ class AppTypography {
   // ============================================================
   // LABEL STYLES
   // ============================================================
-  static const TextStyle labelLarge = TextStyle(
-    fontFamily: persianFont,
+  static TextStyle labelLarge = Vazirmatn.style(
     fontSize: 12,
-    fontWeight: medium,
+    fontWeight: FontWeight.w500,
     letterSpacing: 0.5,
     height: 1.4,
   );
 
-  static const TextStyle labelMedium = TextStyle(
-    fontFamily: persianFont,
+  static TextStyle labelMedium = Vazirmatn.style(
     fontSize: 11,
-    fontWeight: medium,
+    fontWeight: FontWeight.w500,
     letterSpacing: 0.5,
     height: 1.4,
   );
 
-  static const TextStyle labelSmall = TextStyle(
-    fontFamily: persianFont,
+  static TextStyle labelSmall = Vazirmatn.style(
     fontSize: 10,
-    fontWeight: medium,
+    fontWeight: FontWeight.w500,
     letterSpacing: 0.5,
     height: 1.4,
   );
@@ -162,58 +147,51 @@ class AppTypography {
   // ============================================================
   // SPECIAL STYLES
   // ============================================================
-  static const TextStyle price = TextStyle(
-    fontFamily: persianFont,
+  static TextStyle price = Vazirmatn.style(
     fontSize: 16,
-    fontWeight: bold,
+    fontWeight: FontWeight.w700,
     letterSpacing: 0,
     height: 1.4,
   );
 
-  static const TextStyle priceSmall = TextStyle(
-    fontFamily: persianFont,
+  static TextStyle priceSmall = Vazirmatn.style(
     fontSize: 12,
-    fontWeight: semiBold,
+    fontWeight: FontWeight.w600,
     letterSpacing: 0,
     height: 1.4,
   );
 
-  static const TextStyle priceLarge = TextStyle(
-    fontFamily: persianFont,
+  static TextStyle priceLarge = Vazirmatn.style(
     fontSize: 20,
-    fontWeight: bold,
+    fontWeight: FontWeight.w700,
     letterSpacing: 0,
     height: 1.4,
   );
 
-  static const TextStyle stat = TextStyle(
-    fontFamily: persianFont,
+  static TextStyle stat = Vazirmatn.style(
     fontSize: 28,
-    fontWeight: bold,
+    fontWeight: FontWeight.w700,
     letterSpacing: 0,
     height: 1.2,
   );
 
-  static const TextStyle statLabel = TextStyle(
-    fontFamily: persianFont,
+  static TextStyle statLabel = Vazirmatn.style(
     fontSize: 11,
-    fontWeight: regular,
+    fontWeight: FontWeight.w400,
     letterSpacing: 0.5,
     height: 1.4,
   );
 
-  static const TextStyle badge = TextStyle(
-    fontFamily: persianFont,
+  static TextStyle badge = Vazirmatn.style(
     fontSize: 10,
-    fontWeight: semiBold,
+    fontWeight: FontWeight.w600,
     letterSpacing: 0.5,
     height: 1.2,
   );
 
-  static const TextStyle caption = TextStyle(
-    fontFamily: persianFont,
+  static TextStyle caption = Vazirmatn.style(
     fontSize: 10,
-    fontWeight: regular,
+    fontWeight: FontWeight.w400,
     letterSpacing: 0.4,
     height: 1.4,
   );
