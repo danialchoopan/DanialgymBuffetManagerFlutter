@@ -62,14 +62,14 @@ class ResponsiveMainScreen extends StatelessWidget {
 // SIDEBAR (Desktop)
 // ============================================================
 
-class StatefulWidget extends StatefulWidget {
+class SidebarWrapper extends StatefulWidget {
   const StatefulWidget({super.key, required this.child});
   final Widget child;
   @override
   State<StatefulWidget> createState() => _StatefulWidgetState();
 }
 
-class _StatefulWidgetState extends State<StatefulWidget> {
+class _SidebarWrapperState extends State<SidebarWrapper> {
   @override
   Widget build(BuildContext context) => widget.child;
 }
