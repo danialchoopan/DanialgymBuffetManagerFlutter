@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:vazirmatn/vazirmatn.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'colors.dart';
 
 class AppTheme {
@@ -14,8 +14,8 @@ class AppTheme {
       useMaterial3: true,
       brightness: Brightness.light,
       
-      // Use Vazirmatn as default font
-      fontFamily: Vazirmatn.fontFamily,
+      // Use Vazirmatn as default font via Google Fonts
+      fontFamily: GoogleFonts.vazirmatn().fontFamily,
 
       // Color Scheme
       colorScheme: const ColorScheme.light(
@@ -44,67 +44,47 @@ class AppTheme {
       // Scaffold
       scaffoldBackgroundColor: AppColors.backgroundLight,
 
-      // Text Theme with Vazirmatn
-      textTheme: const TextTheme(
-        displayLarge: TextStyle(
-          fontFamily: 'Vazirmatn',
-          fontWeight: FontWeight.w700,
+      // Text Theme
+      textTheme: GoogleFonts.vazirmatnTextTheme().copyWith(
+        displayLarge: GoogleFonts.vazirmatn(
+          fontSize: 34,
+          fontWeight: FontWeight.bold,
+          color: AppColors.gray900,
         ),
-        displayMedium: TextStyle(
-          fontFamily: 'Vazirmatn',
-          fontWeight: FontWeight.w700,
-        ),
-        displaySmall: TextStyle(
-          fontFamily: 'Vazirmatn',
-          fontWeight: FontWeight.w700,
-        ),
-        headlineLarge: TextStyle(
-          fontFamily: 'Vazirmatn',
+        headlineLarge: GoogleFonts.vazirmatn(
+          fontSize: 22,
           fontWeight: FontWeight.w600,
+          color: AppColors.gray900,
         ),
-        headlineMedium: TextStyle(
-          fontFamily: 'Vazirmatn',
+        headlineMedium: GoogleFonts.vazirmatn(
+          fontSize: 20,
           fontWeight: FontWeight.w600,
+          color: AppColors.gray900,
         ),
-        headlineSmall: TextStyle(
-          fontFamily: 'Vazirmatn',
+        titleLarge: GoogleFonts.vazirmatn(
+          fontSize: 16,
           fontWeight: FontWeight.w600,
+          color: AppColors.gray900,
         ),
-        titleLarge: TextStyle(
-          fontFamily: 'Vazirmatn',
-          fontWeight: FontWeight.w600,
-        ),
-        titleMedium: TextStyle(
-          fontFamily: 'Vazirmatn',
+        titleMedium: GoogleFonts.vazirmatn(
+          fontSize: 14,
           fontWeight: FontWeight.w500,
+          color: AppColors.gray900,
         ),
-        titleSmall: TextStyle(
-          fontFamily: 'Vazirmatn',
-          fontWeight: FontWeight.w500,
-        ),
-        bodyLarge: TextStyle(
-          fontFamily: 'Vazirmatn',
+        bodyLarge: GoogleFonts.vazirmatn(
+          fontSize: 14,
           fontWeight: FontWeight.w400,
+          color: AppColors.gray900,
         ),
-        bodyMedium: TextStyle(
-          fontFamily: 'Vazirmatn',
+        bodyMedium: GoogleFonts.vazirmatn(
+          fontSize: 12,
           fontWeight: FontWeight.w400,
+          color: AppColors.gray700,
         ),
-        bodySmall: TextStyle(
-          fontFamily: 'Vazirmatn',
-          fontWeight: FontWeight.w400,
-        ),
-        labelLarge: TextStyle(
-          fontFamily: 'Vazirmatn',
+        labelLarge: GoogleFonts.vazirmatn(
+          fontSize: 12,
           fontWeight: FontWeight.w500,
-        ),
-        labelMedium: TextStyle(
-          fontFamily: 'Vazirmatn',
-          fontWeight: FontWeight.w500,
-        ),
-        labelSmall: TextStyle(
-          fontFamily: 'Vazirmatn',
-          fontWeight: FontWeight.w500,
+          color: AppColors.gray600,
         ),
       ),
 
@@ -114,7 +94,7 @@ class AppTheme {
         centerTitle: false,
         backgroundColor: AppColors.primary,
         foregroundColor: AppColors.white,
-        titleTextStyle: Vazirmatn.style(
+        titleTextStyle: GoogleFonts.vazirmatn(
           fontSize: 18,
           fontWeight: FontWeight.w600,
           color: AppColors.white,
@@ -136,16 +116,6 @@ class AppTheme {
         unselectedItemColor: AppColors.gray500,
         type: BottomNavigationBarType.fixed,
         elevation: 8,
-        selectedLabelStyle: TextStyle(
-          fontFamily: 'Vazirmatn',
-          fontSize: 12,
-          fontWeight: FontWeight.w600,
-        ),
-        unselectedLabelStyle: TextStyle(
-          fontFamily: 'Vazirmatn',
-          fontSize: 11,
-          fontWeight: FontWeight.normal,
-        ),
       ),
 
       // Cards
@@ -172,7 +142,7 @@ class AppTheme {
             borderRadius: BorderRadius.circular(8),
           ),
           elevation: 2,
-          textStyle: Vazirmatn.style(
+          textStyle: GoogleFonts.vazirmatn(
             fontSize: 14,
             fontWeight: FontWeight.w500,
             color: AppColors.white,
@@ -188,7 +158,7 @@ class AppTheme {
             borderRadius: BorderRadius.circular(8),
           ),
           side: const BorderSide(color: AppColors.primary, width: 1),
-          textStyle: Vazirmatn.style(
+          textStyle: GoogleFonts.vazirmatn(
             fontSize: 14,
             fontWeight: FontWeight.w500,
             color: AppColors.primary,
@@ -202,7 +172,7 @@ class AppTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
-          textStyle: Vazirmatn.style(
+          textStyle: GoogleFonts.vazirmatn(
             fontSize: 14,
             fontWeight: FontWeight.w500,
             color: AppColors.primary,
@@ -243,19 +213,12 @@ class AppTheme {
             width: 1,
           ),
         ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(
-            color: AppColors.error,
-            width: 2,
-          ),
-        ),
-        labelStyle: Vazirmatn.style(
+        labelStyle: GoogleFonts.vazirmatn(
           fontSize: 12,
           fontWeight: FontWeight.w400,
           color: AppColors.gray600,
         ),
-        hintStyle: Vazirmatn.style(
+        hintStyle: GoogleFonts.vazirmatn(
           fontSize: 12,
           fontWeight: FontWeight.w400,
           color: AppColors.gray400,
@@ -269,12 +232,12 @@ class AppTheme {
         ),
         backgroundColor: AppColors.white,
         elevation: 8,
-        titleTextStyle: Vazirmatn.style(
+        titleTextStyle: GoogleFonts.vazirmatn(
           fontSize: 20,
           fontWeight: FontWeight.w600,
           color: AppColors.gray900,
         ),
-        contentTextStyle: Vazirmatn.style(
+        contentTextStyle: GoogleFonts.vazirmatn(
           fontSize: 14,
           fontWeight: FontWeight.w400,
           color: AppColors.gray700,
@@ -284,7 +247,7 @@ class AppTheme {
       // Snack Bar
       snackBarTheme: SnackBarThemeData(
         backgroundColor: AppColors.gray800,
-        contentTextStyle: Vazirmatn.style(
+        contentTextStyle: GoogleFonts.vazirmatn(
           fontSize: 14,
           fontWeight: FontWeight.w400,
           color: AppColors.white,
@@ -299,8 +262,7 @@ class AppTheme {
       chipTheme: ChipThemeData(
         backgroundColor: AppColors.gray100,
         selectedColor: AppColors.primary,
-        disabledColor: AppColors.gray200,
-        labelStyle: Vazirmatn.style(
+        labelStyle: GoogleFonts.vazirmatn(
           fontSize: 12,
           fontWeight: FontWeight.w500,
         ),
@@ -326,12 +288,12 @@ class AppTheme {
           horizontal: 16,
           vertical: 4,
         ),
-        titleTextStyle: Vazirmatn.style(
+        titleTextStyle: GoogleFonts.vazirmatn(
           fontSize: 14,
           fontWeight: FontWeight.w400,
           color: AppColors.gray900,
         ),
-        subtitleTextStyle: Vazirmatn.style(
+        subtitleTextStyle: GoogleFonts.vazirmatn(
           fontSize: 12,
           fontWeight: FontWeight.w400,
           color: AppColors.gray600,
@@ -349,8 +311,8 @@ class AppTheme {
       useMaterial3: true,
       brightness: Brightness.dark,
       
-      // Use Vazirmatn as default font
-      fontFamily: Vazirmatn.fontFamily,
+      // Use Vazirmatn as default font via Google Fonts
+      fontFamily: GoogleFonts.vazirmatn().fontFamily,
 
       // Color Scheme
       colorScheme: const ColorScheme.dark(
@@ -379,80 +341,47 @@ class AppTheme {
       // Scaffold
       scaffoldBackgroundColor: AppColors.backgroundDark,
 
-      // Text Theme with Vazirmatn
-      textTheme: const TextTheme(
-        displayLarge: TextStyle(
-          fontFamily: 'Vazirmatn',
-          fontWeight: FontWeight.w700,
+      // Text Theme
+      textTheme: GoogleFonts.vazirmatnTextTheme(
+        ThemeData.dark().textTheme,
+      ).copyWith(
+        displayLarge: GoogleFonts.vazirmatn(
+          fontSize: 34,
+          fontWeight: FontWeight.bold,
           color: AppColors.white,
         ),
-        displayMedium: TextStyle(
-          fontFamily: 'Vazirmatn',
-          fontWeight: FontWeight.w700,
-          color: AppColors.white,
-        ),
-        displaySmall: TextStyle(
-          fontFamily: 'Vazirmatn',
-          fontWeight: FontWeight.w700,
-          color: AppColors.white,
-        ),
-        headlineLarge: TextStyle(
-          fontFamily: 'Vazirmatn',
+        headlineLarge: GoogleFonts.vazirmatn(
+          fontSize: 22,
           fontWeight: FontWeight.w600,
           color: AppColors.white,
         ),
-        headlineMedium: TextStyle(
-          fontFamily: 'Vazirmatn',
+        headlineMedium: GoogleFonts.vazirmatn(
+          fontSize: 20,
           fontWeight: FontWeight.w600,
           color: AppColors.white,
         ),
-        headlineSmall: TextStyle(
-          fontFamily: 'Vazirmatn',
+        titleLarge: GoogleFonts.vazirmatn(
+          fontSize: 16,
           fontWeight: FontWeight.w600,
           color: AppColors.white,
         ),
-        titleLarge: TextStyle(
-          fontFamily: 'Vazirmatn',
-          fontWeight: FontWeight.w600,
-          color: AppColors.white,
-        ),
-        titleMedium: TextStyle(
-          fontFamily: 'Vazirmatn',
+        titleMedium: GoogleFonts.vazirmatn(
+          fontSize: 14,
           fontWeight: FontWeight.w500,
           color: AppColors.white,
         ),
-        titleSmall: TextStyle(
-          fontFamily: 'Vazirmatn',
-          fontWeight: FontWeight.w500,
-          color: AppColors.white,
-        ),
-        bodyLarge: TextStyle(
-          fontFamily: 'Vazirmatn',
+        bodyLarge: GoogleFonts.vazirmatn(
+          fontSize: 14,
           fontWeight: FontWeight.w400,
           color: AppColors.white,
         ),
-        bodyMedium: TextStyle(
-          fontFamily: 'Vazirmatn',
-          fontWeight: FontWeight.w400,
-          color: AppColors.white,
-        ),
-        bodySmall: TextStyle(
-          fontFamily: 'Vazirmatn',
+        bodyMedium: GoogleFonts.vazirmatn(
+          fontSize: 12,
           fontWeight: FontWeight.w400,
           color: AppColors.gray400,
         ),
-        labelLarge: TextStyle(
-          fontFamily: 'Vazirmatn',
-          fontWeight: FontWeight.w500,
-          color: AppColors.white,
-        ),
-        labelMedium: TextStyle(
-          fontFamily: 'Vazirmatn',
-          fontWeight: FontWeight.w500,
-          color: AppColors.white,
-        ),
-        labelSmall: TextStyle(
-          fontFamily: 'Vazirmatn',
+        labelLarge: GoogleFonts.vazirmatn(
+          fontSize: 12,
           fontWeight: FontWeight.w500,
           color: AppColors.gray400,
         ),
@@ -464,7 +393,7 @@ class AppTheme {
         centerTitle: false,
         backgroundColor: AppColors.surfaceDark,
         foregroundColor: AppColors.white,
-        titleTextStyle: Vazirmatn.style(
+        titleTextStyle: GoogleFonts.vazirmatn(
           fontSize: 18,
           fontWeight: FontWeight.w600,
           color: AppColors.white,
@@ -514,17 +443,6 @@ class AppTheme {
           elevation: 2,
         ),
       ),
-      outlinedButtonTheme: OutlinedButtonThemeData(
-        style: OutlinedButton.styleFrom(
-          foregroundColor: AppColors.primaryLight,
-          minimumSize: const Size(64, 48),
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
-          side: const BorderSide(color: AppColors.primaryLight, width: 1),
-        ),
-      ),
 
       // Text Fields
       inputDecorationTheme: InputDecorationTheme(
@@ -552,12 +470,12 @@ class AppTheme {
             width: 2,
           ),
         ),
-        labelStyle: Vazirmatn.style(
+        labelStyle: GoogleFonts.vazirmatn(
           fontSize: 12,
           fontWeight: FontWeight.w400,
           color: AppColors.gray400,
         ),
-        hintStyle: Vazirmatn.style(
+        hintStyle: GoogleFonts.vazirmatn(
           fontSize: 12,
           fontWeight: FontWeight.w400,
           color: AppColors.gray500,
@@ -571,12 +489,12 @@ class AppTheme {
         ),
         backgroundColor: AppColors.surfaceDark,
         elevation: 8,
-        titleTextStyle: Vazirmatn.style(
+        titleTextStyle: GoogleFonts.vazirmatn(
           fontSize: 20,
           fontWeight: FontWeight.w600,
           color: AppColors.white,
         ),
-        contentTextStyle: Vazirmatn.style(
+        contentTextStyle: GoogleFonts.vazirmatn(
           fontSize: 14,
           fontWeight: FontWeight.w400,
           color: AppColors.gray300,
@@ -586,7 +504,7 @@ class AppTheme {
       // Snack Bar
       snackBarTheme: SnackBarThemeData(
         backgroundColor: AppColors.gray200,
-        contentTextStyle: Vazirmatn.style(
+        contentTextStyle: GoogleFonts.vazirmatn(
           fontSize: 14,
           fontWeight: FontWeight.w400,
           color: AppColors.black,
@@ -601,7 +519,7 @@ class AppTheme {
       chipTheme: ChipThemeData(
         backgroundColor: AppColors.gray800,
         selectedColor: AppColors.primaryLight,
-        labelStyle: Vazirmatn.style(
+        labelStyle: GoogleFonts.vazirmatn(
           fontSize: 12,
           fontWeight: FontWeight.w500,
           color: AppColors.white,
@@ -613,25 +531,18 @@ class AppTheme {
         side: const BorderSide(color: AppColors.gray600),
       ),
 
-      // Divider
-      dividerTheme: const DividerThemeData(
-        color: AppColors.gray700,
-        thickness: 1,
-        space: 1,
-      ),
-
       // List Tile
       listTileTheme: ListTileThemeData(
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 16,
           vertical: 4,
         ),
-        titleTextStyle: Vazirmatn.style(
+        titleTextStyle: GoogleFonts.vazirmatn(
           fontSize: 14,
           fontWeight: FontWeight.w400,
           color: AppColors.white,
         ),
-        subtitleTextStyle: Vazirmatn.style(
+        subtitleTextStyle: GoogleFonts.vazirmatn(
           fontSize: 12,
           fontWeight: FontWeight.w400,
           color: AppColors.gray400,

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:vazirmatn/vazirmatn.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 // ============================================================
-// TYPOGRAPHY SYSTEM WITH VAZIRMATN FONT
+// TYPOGRAPHY SYSTEM WITH PERSIAN FONT SUPPORT
 // ============================================================
 
 class AppTypography {
@@ -27,21 +27,21 @@ class AppTypography {
   // ============================================================
   // DISPLAY STYLES
   // ============================================================
-  static TextStyle displayLarge = Vazirmatn.style(
+  static TextStyle displayLarge = GoogleFonts.vazirmatn(
     fontSize: 34,
     fontWeight: FontWeight.bold,
     letterSpacing: 0.25,
     height: 1.3,
   );
 
-  static TextStyle displayMedium = Vazirmatn.style(
+  static TextStyle displayMedium = GoogleFonts.vazirmatn(
     fontSize: 28,
     fontWeight: FontWeight.bold,
     letterSpacing: 0,
     height: 1.3,
   );
 
-  static TextStyle displaySmall = Vazirmatn.style(
+  static TextStyle displaySmall = GoogleFonts.vazirmatn(
     fontSize: 24,
     fontWeight: FontWeight.bold,
     letterSpacing: 0,
@@ -51,21 +51,21 @@ class AppTypography {
   // ============================================================
   // HEADLINE STYLES
   // ============================================================
-  static TextStyle headlineLarge = Vazirmatn.style(
+  static TextStyle headlineLarge = GoogleFonts.vazirmatn(
     fontSize: 22,
     fontWeight: FontWeight.w600,
     letterSpacing: 0,
     height: 1.4,
   );
 
-  static TextStyle headlineMedium = Vazirmatn.style(
+  static TextStyle headlineMedium = GoogleFonts.vazirmatn(
     fontSize: 20,
     fontWeight: FontWeight.w600,
     letterSpacing: 0,
     height: 1.4,
   );
 
-  static TextStyle headlineSmall = Vazirmatn.style(
+  static TextStyle headlineSmall = GoogleFonts.vazirmatn(
     fontSize: 18,
     fontWeight: FontWeight.w600,
     letterSpacing: 0,
@@ -75,21 +75,21 @@ class AppTypography {
   // ============================================================
   // TITLE STYLES
   // ============================================================
-  static TextStyle titleLarge = Vazirmatn.style(
+  static TextStyle titleLarge = GoogleFonts.vazirmatn(
     fontSize: 16,
     fontWeight: FontWeight.w600,
     letterSpacing: 0.15,
     height: 1.5,
   );
 
-  static TextStyle titleMedium = Vazirmatn.style(
+  static TextStyle titleMedium = GoogleFonts.vazirmatn(
     fontSize: 14,
     fontWeight: FontWeight.w500,
     letterSpacing: 0.1,
     height: 1.5,
   );
 
-  static TextStyle titleSmall = Vazirmatn.style(
+  static TextStyle titleSmall = GoogleFonts.vazirmatn(
     fontSize: 12,
     fontWeight: FontWeight.w500,
     letterSpacing: 0.1,
@@ -99,21 +99,21 @@ class AppTypography {
   // ============================================================
   // BODY STYLES
   // ============================================================
-  static TextStyle bodyLarge = Vazirmatn.style(
+  static TextStyle bodyLarge = GoogleFonts.vazirmatn(
     fontSize: 14,
     fontWeight: FontWeight.w400,
     letterSpacing: 0.25,
     height: 1.6,
   );
 
-  static TextStyle bodyMedium = Vazirmatn.style(
+  static TextStyle bodyMedium = GoogleFonts.vazirmatn(
     fontSize: 12,
     fontWeight: FontWeight.w400,
     letterSpacing: 0.25,
     height: 1.6,
   );
 
-  static TextStyle bodySmall = Vazirmatn.style(
+  static TextStyle bodySmall = GoogleFonts.vazirmatn(
     fontSize: 11,
     fontWeight: FontWeight.w400,
     letterSpacing: 0.4,
@@ -123,21 +123,21 @@ class AppTypography {
   // ============================================================
   // LABEL STYLES
   // ============================================================
-  static TextStyle labelLarge = Vazirmatn.style(
+  static TextStyle labelLarge = GoogleFonts.vazirmatn(
     fontSize: 12,
     fontWeight: FontWeight.w500,
     letterSpacing: 0.5,
     height: 1.4,
   );
 
-  static TextStyle labelMedium = Vazirmatn.style(
+  static TextStyle labelMedium = GoogleFonts.vazirmatn(
     fontSize: 11,
     fontWeight: FontWeight.w500,
     letterSpacing: 0.5,
     height: 1.4,
   );
 
-  static TextStyle labelSmall = Vazirmatn.style(
+  static TextStyle labelSmall = GoogleFonts.vazirmatn(
     fontSize: 10,
     fontWeight: FontWeight.w500,
     letterSpacing: 0.5,
@@ -147,49 +147,49 @@ class AppTypography {
   // ============================================================
   // SPECIAL STYLES
   // ============================================================
-  static TextStyle price = Vazirmatn.style(
+  static TextStyle price = GoogleFonts.vazirmatn(
     fontSize: 16,
     fontWeight: FontWeight.w700,
     letterSpacing: 0,
     height: 1.4,
   );
 
-  static TextStyle priceSmall = Vazirmatn.style(
+  static TextStyle priceSmall = GoogleFonts.vazirmatn(
     fontSize: 12,
     fontWeight: FontWeight.w600,
     letterSpacing: 0,
     height: 1.4,
   );
 
-  static TextStyle priceLarge = Vazirmatn.style(
+  static TextStyle priceLarge = GoogleFonts.vazirmatn(
     fontSize: 20,
     fontWeight: FontWeight.w700,
     letterSpacing: 0,
     height: 1.4,
   );
 
-  static TextStyle stat = Vazirmatn.style(
+  static TextStyle stat = GoogleFonts.vazirmatn(
     fontSize: 28,
     fontWeight: FontWeight.w700,
     letterSpacing: 0,
     height: 1.2,
   );
 
-  static TextStyle statLabel = Vazirmatn.style(
+  static TextStyle statLabel = GoogleFonts.vazirmatn(
     fontSize: 11,
     fontWeight: FontWeight.w400,
     letterSpacing: 0.5,
     height: 1.4,
   );
 
-  static TextStyle badge = Vazirmatn.style(
+  static TextStyle badge = GoogleFonts.vazirmatn(
     fontSize: 10,
     fontWeight: FontWeight.w600,
     letterSpacing: 0.5,
     height: 1.2,
   );
 
-  static TextStyle caption = Vazirmatn.style(
+  static TextStyle caption = GoogleFonts.vazirmatn(
     fontSize: 10,
     fontWeight: FontWeight.w400,
     letterSpacing: 0.4,
