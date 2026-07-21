@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 void main() {
@@ -20,44 +19,14 @@ class GymBuffetManagerApp extends StatelessWidget {
     return MaterialApp(
       title: 'Gym & Buffet Manager',
       debugShowCheckedModeBanner: false,
-      
-      // RTL by default
-      locale: const Locale('fa', 'IR'),
-      supportedLocales: const [
-        Locale('fa', 'IR'),
-        Locale('en', 'US'),
-      ],
-      
-      // Theme
       theme: ThemeData(
         useMaterial3: true,
-        fontFamily: 'Roboto',
         colorScheme: ColorScheme.fromSeed(
           seedColor: const Color(0xFF1B5E20),
           brightness: Brightness.light,
         ),
         scaffoldBackgroundColor: const Color(0xFFF5F5F5),
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Color(0xFF1B5E20),
-          foregroundColor: Colors.white,
-          elevation: 0,
-        ),
-        cardTheme: CardTheme(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          elevation: 2,
-        ),
       ),
-      
-      // RTL support
-      builder: (context, child) {
-        return Directionality(
-          textDirection: TextDirection.rtl,
-          child: child!,
-        );
-      },
-      
       home: const MainScreen(),
     );
   }
@@ -87,19 +56,9 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final isTablet = screenWidth > 600;
-    final isDesktop = screenWidth > 1024;
-
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          _titles[_currentIndex],
-          style: const TextStyle(
-            fontWeight: FontWeight.w600,
-            fontSize: 18,
-          ),
-        ),
+        title: Text(_titles[_currentIndex]),
         actions: [
           IconButton(
             icon: const Icon(Icons.notifications_outlined),
@@ -111,9 +70,8 @@ class _MainScreenState extends State<MainScreen> {
           ),
         ],
       ),
-      drawer: isDesktop ? null : _buildDrawer(context),
       body: _buildBody(),
-      bottomNavigationBar: isDesktop ? null : _buildBottomNav(),
+      bottomNavigationBar: _buildBottomNav(),
     );
   }
 
@@ -132,71 +90,6 @@ class _MainScreenState extends State<MainScreen> {
       default:
         return const DashboardScreen();
     }
-  }
-
-  Widget _buildDrawer(BuildContext context) {
-    return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          const DrawerHeader(
-            decoration: BoxDecoration(
-              color: Color(0xFF1B5E20),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                CircleAvatar(
-                  radius: 30,
-                  backgroundColor: Colors.white,
-                  child: Icon(
-                    Icons.fitness_center,
-                    size: 30,
-                    color: Color(0xFF1B5E20),
-                  ),
-                ),
-                SizedBox(height: 8),
-                Text(
-                  'Gym Buffet Manager',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          _buildDrawerItem(0, Icons.dashboard, 'Dashboard'),
-          _buildDrawerItem(1, Icons.people, 'Members'),
-          _buildDrawerItem(2, Icons.fitness_center, 'Workouts'),
-          _buildDrawerItem(3, Icons.restaurant, 'Buffet'),
-          _buildDrawerItem(4, Icons.assessment, 'Reports'),
-          const Divider(),
-          _buildDrawerItem(5, Icons.settings, 'Settings'),
-          _buildDrawerItem(6, Icons.backup, 'Backup'),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildDrawerItem(int index, IconData icon, String title) {
-    return ListTile(
-      leading: Icon(icon, color: _currentIndex == index ? const Color(0xFF1B5E20) : Colors.grey),
-      title: Text(
-        title,
-        style: TextStyle(
-          color: _currentIndex == index ? const Color(0xFF1B5E20) : Colors.black,
-          fontWeight: _currentIndex == index ? FontWeight.w600 : FontWeight.normal,
-        ),
-      ),
-      selected: _currentIndex == index,
-      onTap: () {
-        setState(() => _currentIndex = index);
-        Navigator.pop(context);
-      },
-    );
   }
 
   BottomNavigationBar _buildBottomNav() {
@@ -219,16 +112,13 @@ class _MainScreenState extends State<MainScreen> {
   void _showNotifications(BuildContext context) {
     showModalBottomSheet(
       context: context,
-      builder: (context) => Container(
+      builder: (ctx) => Container(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text(
-              'Notifications',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
+            const Text('Notifications', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             const Divider(),
             ListTile(
               leading: const Icon(Icons.warning, color: Colors.orange),
@@ -251,7 +141,7 @@ class _MainScreenState extends State<MainScreen> {
   void _showProfile(BuildContext context) {
     showModalBottomSheet(
       context: context,
-      builder: (context) => Container(
+      builder: (ctx) => Container(
         padding: const EdgeInsets.all(16),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -262,21 +152,18 @@ class _MainScreenState extends State<MainScreen> {
               child: Icon(Icons.person, size: 40, color: Colors.white),
             ),
             const SizedBox(height: 16),
-            const Text(
-              'Admin User',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
+            const Text('Admin User', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             const Text('admin@gym.com', style: TextStyle(color: Colors.grey)),
             const Divider(),
             ListTile(
               leading: const Icon(Icons.settings),
               title: const Text('Settings'),
-              onTap: () => Navigator.pop(context),
+              onTap: () => Navigator.pop(ctx),
             ),
             ListTile(
               leading: const Icon(Icons.logout, color: Colors.red),
               title: const Text('Logout', style: TextStyle(color: Colors.red)),
-              onTap: () => Navigator.pop(context),
+              onTap: () => Navigator.pop(ctx),
             ),
           ],
         ),
@@ -324,15 +211,9 @@ class DashboardScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Welcome Back! 👋',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                  ),
+                  const Text('Welcome Back!', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
                   const SizedBox(height: 8),
-                  Text(
-                    dateStr,
-                    style: TextStyle(fontSize: 14, color: Colors.grey[600]),
-                  ),
+                  Text(dateStr, style: TextStyle(fontSize: 14, color: Colors.grey[600])),
                 ],
               ),
             ),
@@ -356,18 +237,19 @@ class DashboardScreen extends StatelessWidget {
       children: [
         const Text('Quick Stats', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
         const SizedBox(height: 12),
-        GridView.count(
-          crossAxisCount: 2,
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          mainAxisSpacing: 12,
-          crossAxisSpacing: 12,
-          childAspectRatio: 1.5,
+        Row(
           children: [
-            _buildStatCard('Total Members', '1,250', Icons.people, const Color(0xFF2196F3)),
-            _buildStatCard('Active Members', '980', Icons.check_circle, const Color(0xFF4CAF50)),
-            _buildStatCard("Today's Attendance", '125', Icons.how_to_reg, const Color(0xFFFF9800)),
-            _buildStatCard("Today's Revenue", '\$5,200', Icons.attach_money, const Color(0xFF9C27B0)),
+            Expanded(child: _buildStatCard('Total Members', '1,250', Icons.people, const Color(0xFF2196F3))),
+            const SizedBox(width: 12),
+            Expanded(child: _buildStatCard('Active Members', '980', Icons.check_circle, const Color(0xFF4CAF50))),
+          ],
+        ),
+        const SizedBox(height: 12),
+        Row(
+          children: [
+            Expanded(child: _buildStatCard("Today's Attendance", '125', Icons.how_to_reg, const Color(0xFFFF9800))),
+            const SizedBox(width: 12),
+            Expanded(child: _buildStatCard("Today's Revenue", '\$5,200', Icons.attach_money, const Color(0xFF9C27B0))),
           ],
         ),
       ],
@@ -380,7 +262,6 @@ class DashboardScreen extends StatelessWidget {
         padding: const EdgeInsets.all(12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
               padding: const EdgeInsets.all(8),
@@ -390,7 +271,7 @@ class DashboardScreen extends StatelessWidget {
               ),
               child: Icon(icon, color: color, size: 20),
             ),
-            const Spacer(),
+            const SizedBox(height: 12),
             Text(value, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
             const SizedBox(height: 4),
             Text(title, style: TextStyle(fontSize: 11, color: Colors.grey[600])),
@@ -406,36 +287,37 @@ class DashboardScreen extends StatelessWidget {
       children: [
         const Text('Quick Actions', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
         const SizedBox(height: 12),
-        GridView.count(
-          crossAxisCount: 3,
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          mainAxisSpacing: 12,
-          crossAxisSpacing: 12,
-          childAspectRatio: 1.2,
+        Row(
           children: [
-            _buildActionCard(context, 'Add Member', Icons.person_add, const Color(0xFF4CAF50), const MembersScreen()),
-            _buildActionCard(context, 'Check-in', Icons.login, const Color(0xFF2196F3), null),
-            _buildActionCard(context, 'New Order', Icons.shopping_cart, const Color(0xFFFF9800), const BuffetScreen()),
-            _buildActionCard(context, 'Payment', Icons.payment, const Color(0xFF9C27B0), null),
-            _buildActionCard(context, 'Reports', Icons.assessment, const Color(0xFF009688), const ReportsScreen()),
-            _buildActionCard(context, 'Settings', Icons.settings, const Color(0xFF607D8B), null),
+            Expanded(child: _buildActionCard(context, 'Add Member', Icons.person_add, const Color(0xFF4CAF50), 1)),
+            const SizedBox(width: 8),
+            Expanded(child: _buildActionCard(context, 'Check-in', Icons.login, const Color(0xFF2196F3), 0)),
+            const SizedBox(width: 8),
+            Expanded(child: _buildActionCard(context, 'New Order', Icons.shopping_cart, const Color(0xFFFF9800), 3)),
+          ],
+        ),
+        const SizedBox(height: 8),
+        Row(
+          children: [
+            Expanded(child: _buildActionCard(context, 'Payment', Icons.payment, const Color(0xFF9C27B0), 0)),
+            const SizedBox(width: 8),
+            Expanded(child: _buildActionCard(context, 'Reports', Icons.assessment, const Color(0xFF009688), 4)),
+            const SizedBox(width: 8),
+            Expanded(child: _buildActionCard(context, 'Settings', Icons.settings, const Color(0xFF607D8B), 0)),
           ],
         ),
       ],
     );
   }
 
-  Widget _buildActionCard(BuildContext context, String title, IconData icon, Color color, Widget? screen) {
+  Widget _buildActionCard(BuildContext context, String title, IconData icon, Color color, int tabIndex) {
     return Card(
       child: InkWell(
-        onTap: screen != null
-            ? () => Navigator.push(context, MaterialPageRoute(builder: (_) => screen))
-            : () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('$title - Coming Soon')),
-                );
-              },
+        onTap: () {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Opening $title...')),
+          );
+        },
         borderRadius: BorderRadius.circular(12),
         child: Padding(
           padding: const EdgeInsets.all(12),
@@ -443,15 +325,15 @@ class DashboardScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                padding: const EdgeInsets.all(12),
+                padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   color: color.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: Icon(icon, color: color, size: 28),
+                child: Icon(icon, color: color, size: 24),
               ),
               const SizedBox(height: 8),
-              Text(title, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500), textAlign: TextAlign.center),
+              Text(title, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w500), textAlign: TextAlign.center),
             ],
           ),
         ),
@@ -518,34 +400,23 @@ class MembersScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // Search Bar
         Padding(
           padding: const EdgeInsets.all(16),
           child: TextField(
             decoration: InputDecoration(
               hintText: 'Search members...',
               prefixIcon: const Icon(Icons.search),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
+              border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
               filled: true,
               fillColor: Colors.white,
             ),
           ),
         ),
-        // Filter Chips
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Row(
             children: [
-              FilterChip(
-                label: const Text('All'),
-                selected: true,
-                onSelected: (v) {},
-                selectedColor: const Color(0xFF1B5E20),
-                checkmarkColor: Colors.white,
-                labelStyle: const TextStyle(color: Colors.white),
-              ),
+              FilterChip(label: const Text('All'), selected: true, onSelected: (v) {}, selectedColor: const Color(0xFF1B5E20), labelStyle: const TextStyle(color: Colors.white)),
               const SizedBox(width: 8),
               FilterChip(label: const Text('Active'), selected: false, onSelected: (v) {}),
               const SizedBox(width: 8),
@@ -554,19 +425,18 @@ class MembersScreen extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 8),
-        // Member List
         Expanded(
           child: ListView.builder(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            itemCount: 10,
-            itemBuilder: (context, index) => _buildMemberCard(index),
+            itemCount: 5,
+            itemBuilder: (context, index) => _buildMemberCard(context, index),
           ),
         ),
       ],
     );
   }
 
-  Widget _buildMemberCard(int index) {
+  Widget _buildMemberCard(BuildContext context, int index) {
     final members = [
       {'name': 'Ali Mohammad', 'phone': '09121234567', 'status': 'Active', 'expiry': '2024/08/15'},
       {'name': 'Reza Ahmadi', 'phone': '09129876543', 'status': 'Active', 'expiry': '2024/10/20'},
@@ -575,7 +445,7 @@ class MembersScreen extends StatelessWidget {
       {'name': 'Zahra Abbasi', 'phone': '09123334455', 'status': 'Active', 'expiry': '2025/01/01'},
     ];
     
-    final member = members[index % members.length];
+    final member = members[index];
     final isExpired = member['status'] == 'Expired';
     final isExpiring = member['status'] == 'Expiring';
     
@@ -702,18 +572,19 @@ class BuffetScreen extends StatelessWidget {
         children: [
           const Text('Products', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           const SizedBox(height: 12),
-          GridView.count(
-            crossAxisCount: 2,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            mainAxisSpacing: 12,
-            crossAxisSpacing: 12,
-            childAspectRatio: 0.8,
+          Row(
             children: [
-              _buildProductCard('Protein Shake', '\$150,000', 'In Stock', const Color(0xFF4CAF50)),
-              _buildProductCard('Water', '\$10,000', 'In Stock', const Color(0xFF2196F3)),
-              _buildProductCard('Banana', '\$25,000', 'Low Stock', const Color(0xFFFF9800)),
-              _buildProductCard('Energy Bar', '\$85,000', 'Out of Stock', const Color(0xFFF44336)),
+              Expanded(child: _buildProductCard('Protein Shake', '\$150,000', 'In Stock', const Color(0xFF4CAF50))),
+              const SizedBox(width: 12),
+              Expanded(child: _buildProductCard('Water', '\$10,000', 'In Stock', const Color(0xFF2196F3))),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Row(
+            children: [
+              Expanded(child: _buildProductCard('Banana', '\$25,000', 'Low Stock', const Color(0xFFFF9800))),
+              const SizedBox(width: 12),
+              Expanded(child: _buildProductCard('Energy Bar', '\$85,000', 'Out of Stock', const Color(0xFFF44336))),
             ],
           ),
           const SizedBox(height: 20),
@@ -821,24 +692,12 @@ class ReportsScreen extends StatelessWidget {
           const SizedBox(height: 20),
           const Text('Report Types', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           const SizedBox(height: 12),
-          _buildReportOption('Daily Report', Icons.calendar_today, () {
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Generating daily report...')));
-          }),
-          _buildReportOption('Monthly Report', Icons.calendar_month, () {
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Generating monthly report...')));
-          }),
-          _buildReportOption('Member Report', Icons.people, () {
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Generating member report...')));
-          }),
-          _buildReportOption('Attendance Report', Icons.how_to_reg, () {
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Generating attendance report...')));
-          }),
-          _buildReportOption('Export to PDF', Icons.picture_as_pdf, () {
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Exporting to PDF...')));
-          }),
-          _buildReportOption('Export to Excel', Icons.table_chart, () {
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Exporting to Excel...')));
-          }),
+          _buildReportOption(context, 'Daily Report', Icons.calendar_today),
+          _buildReportOption(context, 'Monthly Report', Icons.calendar_month),
+          _buildReportOption(context, 'Member Report', Icons.people),
+          _buildReportOption(context, 'Attendance Report', Icons.how_to_reg),
+          _buildReportOption(context, 'Export to PDF', Icons.picture_as_pdf),
+          _buildReportOption(context, 'Export to Excel', Icons.table_chart),
         ],
       ),
     );
@@ -860,14 +719,18 @@ class ReportsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildReportOption(String title, IconData icon, VoidCallback onTap) {
+  Widget _buildReportOption(BuildContext context, String title, IconData icon) {
     return Card(
       margin: const EdgeInsets.only(bottom: 8),
       child: ListTile(
         leading: Icon(icon, color: const Color(0xFF1B5E20)),
         title: Text(title, style: const TextStyle(fontWeight: FontWeight.w500)),
         trailing: const Icon(Icons.chevron_left),
-        onTap: onTap,
+        onTap: () {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Generating $title...')),
+          );
+        },
       ),
     );
   }
