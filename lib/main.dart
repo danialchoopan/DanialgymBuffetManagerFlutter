@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 void main() {
@@ -17,16 +18,35 @@ class GymBuffetManagerApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Gym & Buffet Manager',
+      title: 'مدیریت باشگاه و بوفه',
       debugShowCheckedModeBanner: false,
+      
+      // RTL Support
+      locale: const Locale('fa', 'IR'),
+      supportedLocales: const [
+        Locale('fa', 'IR'),
+        Locale('en', 'US'),
+      ],
+      
+      // Theme
       theme: ThemeData(
         useMaterial3: true,
+        fontFamily: GoogleFonts.vazirmatn().fontFamily,
         colorScheme: ColorScheme.fromSeed(
           seedColor: const Color(0xFF1B5E20),
           brightness: Brightness.light,
         ),
         scaffoldBackgroundColor: const Color(0xFFF5F5F5),
       ),
+      
+      // RTL by default
+      builder: (context, child) {
+        return Directionality(
+          textDirection: TextDirection.rtl,
+          child: child!,
+        );
+      },
+      
       home: const MainScreen(),
     );
   }
@@ -47,18 +67,27 @@ class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
   
   final List<String> _titles = [
-    'Dashboard',
-    'Members',
-    'Workouts',
-    'Buffet',
-    'Reports',
+    'داشبورد',
+    'اعضا',
+    'تمرینات',
+    'بوفه',
+    'گزارش‌ها',
   ];
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isDesktop = screenWidth > 1024;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(_titles[_currentIndex]),
+        title: Text(
+          _titles[_currentIndex],
+          style: const TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: 18,
+          ),
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.notifications_outlined),
@@ -70,8 +99,9 @@ class _MainScreenState extends State<MainScreen> {
           ),
         ],
       ),
+      drawer: isDesktop ? null : _buildDrawer(context),
       body: _buildBody(),
-      bottomNavigationBar: _buildBottomNav(),
+      bottomNavigationBar: isDesktop ? null : _buildBottomNav(),
     );
   }
 
@@ -92,6 +122,78 @@ class _MainScreenState extends State<MainScreen> {
     }
   }
 
+  Widget _buildDrawer(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          const DrawerHeader(
+            decoration: BoxDecoration(
+              color: Color(0xFF1B5E20),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                CircleAvatar(
+                  radius: 30,
+                  backgroundColor: Colors.white,
+                  child: Icon(
+                    Icons.fitness_center,
+                    size: 30,
+                    color: Color(0xFF1B5E20),
+                  ),
+                ),
+                SizedBox(height: 8),
+                Text(
+                  'مدیریت باشگاه و بوفه',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  'admin@gym.com',
+                  style: TextStyle(
+                    color: Colors.white70,
+                    fontSize: 12,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          _buildDrawerItem(0, Icons.dashboard, 'داشبورد'),
+          _buildDrawerItem(1, Icons.people, 'اعضا'),
+          _buildDrawerItem(2, Icons.fitness_center, 'تمرینات'),
+          _buildDrawerItem(3, Icons.restaurant, 'بوفه'),
+          _buildDrawerItem(4, Icons.assessment, 'گزارش‌ها'),
+          const Divider(),
+          _buildDrawerItem(5, Icons.settings, 'تنظیمات'),
+          _buildDrawerItem(6, Icons.backup, 'پشتیبان‌گیری'),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDrawerItem(int index, IconData icon, String title) {
+    return ListTile(
+      leading: Icon(icon, color: _currentIndex == index ? const Color(0xFF1B5E20) : Colors.grey),
+      title: Text(
+        title,
+        style: TextStyle(
+          color: _currentIndex == index ? const Color(0xFF1B5E20) : Colors.black,
+          fontWeight: _currentIndex == index ? FontWeight.w600 : FontWeight.normal,
+        ),
+      ),
+      selected: _currentIndex == index,
+      onTap: () {
+        setState(() => _currentIndex = index);
+        Navigator.pop(context);
+      },
+    );
+  }
+
   BottomNavigationBar _buildBottomNav() {
     return BottomNavigationBar(
       currentIndex: _currentIndex,
@@ -100,11 +202,11 @@ class _MainScreenState extends State<MainScreen> {
       selectedItemColor: const Color(0xFF1B5E20),
       unselectedItemColor: Colors.grey,
       items: const [
-        BottomNavigationBarItem(icon: Icon(Icons.dashboard), label: 'Dashboard'),
-        BottomNavigationBarItem(icon: Icon(Icons.people), label: 'Members'),
-        BottomNavigationBarItem(icon: Icon(Icons.fitness_center), label: 'Workouts'),
-        BottomNavigationBarItem(icon: Icon(Icons.restaurant), label: 'Buffet'),
-        BottomNavigationBarItem(icon: Icon(Icons.assessment), label: 'Reports'),
+        BottomNavigationBarItem(icon: Icon(Icons.dashboard), label: 'داشبورد'),
+        BottomNavigationBarItem(icon: Icon(Icons.people), label: 'اعضا'),
+        BottomNavigationBarItem(icon: Icon(Icons.fitness_center), label: 'تمرینات'),
+        BottomNavigationBarItem(icon: Icon(Icons.restaurant), label: 'بوفه'),
+        BottomNavigationBarItem(icon: Icon(Icons.assessment), label: 'گزارش‌ها'),
       ],
     );
   }
@@ -118,19 +220,19 @@ class _MainScreenState extends State<MainScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text('Notifications', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            const Text('اعلان‌ها', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             const Divider(),
             ListTile(
               leading: const Icon(Icons.warning, color: Colors.orange),
-              title: const Text('Low Stock Alert'),
-              subtitle: const Text('Vitamin supplements running low'),
-              trailing: const Text('2h ago'),
+              title: const Text('هشدار موجودی'),
+              subtitle: const Text('مکمل‌های ورزشی رو به اتمام است'),
+              trailing: const Text('۲ ساعت پیش'),
             ),
             ListTile(
               leading: const Icon(Icons.person, color: Colors.green),
-              title: const Text('Membership Expiring'),
-              subtitle: const Text('5 memberships expiring this week'),
-              trailing: const Text('5h ago'),
+              title: const Text('انقضای عضویت'),
+              subtitle: const Text('۵ عضویت این هفته منقضی می‌شود'),
+              trailing: const Text('۵ ساعت پیش'),
             ),
           ],
         ),
@@ -152,17 +254,17 @@ class _MainScreenState extends State<MainScreen> {
               child: Icon(Icons.person, size: 40, color: Colors.white),
             ),
             const SizedBox(height: 16),
-            const Text('Admin User', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            const Text('مدیر سیستم', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             const Text('admin@gym.com', style: TextStyle(color: Colors.grey)),
             const Divider(),
             ListTile(
               leading: const Icon(Icons.settings),
-              title: const Text('Settings'),
+              title: const Text('تنظیمات'),
               onTap: () => Navigator.pop(ctx),
             ),
             ListTile(
               leading: const Icon(Icons.logout, color: Colors.red),
-              title: const Text('Logout', style: TextStyle(color: Colors.red)),
+              title: const Text('خروج', style: TextStyle(color: Colors.red)),
               onTap: () => Navigator.pop(ctx),
             ),
           ],
@@ -200,7 +302,7 @@ class DashboardScreen extends StatelessWidget {
 
   Widget _buildWelcomeCard() {
     final now = DateTime.now();
-    final dateStr = DateFormat('EEEE, MMMM d, yyyy').format(now);
+    final dateStr = DateFormat('yyyy/MM/dd - EEEE', 'fa_IR').format(now);
     
     return Card(
       child: Padding(
@@ -211,9 +313,15 @@ class DashboardScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('Welcome Back!', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                  const Text(
+                    'خوش آمدید! 👋',
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
                   const SizedBox(height: 8),
-                  Text(dateStr, style: TextStyle(fontSize: 14, color: Colors.grey[600])),
+                  Text(
+                    dateStr,
+                    style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+                  ),
                 ],
               ),
             ),
@@ -235,21 +343,21 @@ class DashboardScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Quick Stats', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        const Text('آمار سریع', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
         const SizedBox(height: 12),
         Row(
           children: [
-            Expanded(child: _buildStatCard('Total Members', '1,250', Icons.people, const Color(0xFF2196F3))),
+            Expanded(child: _buildStatCard('کل اعضا', '۱,۲۵۰', Icons.people, const Color(0xFF2196F3))),
             const SizedBox(width: 12),
-            Expanded(child: _buildStatCard('Active Members', '980', Icons.check_circle, const Color(0xFF4CAF50))),
+            Expanded(child: _buildStatCard('اعضای فعال', '۹۸۰', Icons.check_circle, const Color(0xFF4CAF50))),
           ],
         ),
         const SizedBox(height: 12),
         Row(
           children: [
-            Expanded(child: _buildStatCard("Today's Attendance", '125', Icons.how_to_reg, const Color(0xFFFF9800))),
+            Expanded(child: _buildStatCard('حضور امروز', '۱۲۵', Icons.how_to_reg, const Color(0xFFFF9800))),
             const SizedBox(width: 12),
-            Expanded(child: _buildStatCard("Today's Revenue", '\$5,200', Icons.attach_money, const Color(0xFF9C27B0))),
+            Expanded(child: _buildStatCard('درآمد امروز', '۵,۲۰۰,۰۰۰', Icons.attach_money, const Color(0xFF9C27B0))),
           ],
         ),
       ],
@@ -285,37 +393,37 @@ class DashboardScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Quick Actions', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        const Text('دسترسی سریع', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
         const SizedBox(height: 12),
         Row(
           children: [
-            Expanded(child: _buildActionCard(context, 'Add Member', Icons.person_add, const Color(0xFF4CAF50), 1)),
+            Expanded(child: _buildActionCard(context, 'افزودن عضو', Icons.person_add, const Color(0xFF4CAF50))),
             const SizedBox(width: 8),
-            Expanded(child: _buildActionCard(context, 'Check-in', Icons.login, const Color(0xFF2196F3), 0)),
+            Expanded(child: _buildActionCard(context, 'ورود عضو', Icons.login, const Color(0xFF2196F3))),
             const SizedBox(width: 8),
-            Expanded(child: _buildActionCard(context, 'New Order', Icons.shopping_cart, const Color(0xFFFF9800), 3)),
+            Expanded(child: _buildActionCard(context, 'سفارش جدید', Icons.shopping_cart, const Color(0xFFFF9800))),
           ],
         ),
         const SizedBox(height: 8),
         Row(
           children: [
-            Expanded(child: _buildActionCard(context, 'Payment', Icons.payment, const Color(0xFF9C27B0), 0)),
+            Expanded(child: _buildActionCard(context, 'پرداخت', Icons.payment, const Color(0xFF9C27B0))),
             const SizedBox(width: 8),
-            Expanded(child: _buildActionCard(context, 'Reports', Icons.assessment, const Color(0xFF009688), 4)),
+            Expanded(child: _buildActionCard(context, 'گزارش‌ها', Icons.assessment, const Color(0xFF009688))),
             const SizedBox(width: 8),
-            Expanded(child: _buildActionCard(context, 'Settings', Icons.settings, const Color(0xFF607D8B), 0)),
+            Expanded(child: _buildActionCard(context, 'تنظیمات', Icons.settings, const Color(0xFF607D8B))),
           ],
         ),
       ],
     );
   }
 
-  Widget _buildActionCard(BuildContext context, String title, IconData icon, Color color, int tabIndex) {
+  Widget _buildActionCard(BuildContext context, String title, IconData icon, Color color) {
     return Card(
       child: InkWell(
         onTap: () {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Opening $title...')),
+            SnackBar(content: Text('باز کردن $title...')),
           );
         },
         borderRadius: BorderRadius.circular(12),
@@ -348,11 +456,11 @@ class DashboardScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('Recent Activity', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            const Text('فعالیت‌های اخیر', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             const SizedBox(height: 12),
-            _buildActivityItem('Member Check-in', 'Ali Mohammad checked in', '2h ago', Icons.login, const Color(0xFF4CAF50)),
-            _buildActivityItem('New Order', 'Order #1234 - \$150', '3h ago', Icons.shopping_cart, const Color(0xFFFF9800)),
-            _buildActivityItem('Payment Received', 'Reza Ahmadi - \$500', '5h ago', Icons.payment, const Color(0xFF9C27B0)),
+            _buildActivityItem('ورود عضو', 'علی محمدی وارد شد', '۲ ساعت پیش', Icons.login, const Color(0xFF4CAF50)),
+            _buildActivityItem('سفارش جدید', 'سفارش #۱۲۳۴ - ۱۵۰,۰۰۰ تومان', '۳ ساعت پیش', Icons.shopping_cart, const Color(0xFFFF9800)),
+            _buildActivityItem('پرداخت', 'رضا احمدی - ۵۰۰,۰۰۰ تومان', '۵ ساعت پیش', Icons.payment, const Color(0xFF9C27B0)),
           ],
         ),
       ),
@@ -404,7 +512,7 @@ class MembersScreen extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           child: TextField(
             decoration: InputDecoration(
-              hintText: 'Search members...',
+              hintText: 'جستجوی اعضا...',
               prefixIcon: const Icon(Icons.search),
               border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
               filled: true,
@@ -416,11 +524,11 @@ class MembersScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Row(
             children: [
-              FilterChip(label: const Text('All'), selected: true, onSelected: (v) {}, selectedColor: const Color(0xFF1B5E20), labelStyle: const TextStyle(color: Colors.white)),
+              FilterChip(label: const Text('همه'), selected: true, onSelected: (v) {}, selectedColor: const Color(0xFF1B5E20), labelStyle: const TextStyle(color: Colors.white)),
               const SizedBox(width: 8),
-              FilterChip(label: const Text('Active'), selected: false, onSelected: (v) {}),
+              FilterChip(label: const Text('فعال'), selected: false, onSelected: (v) {}),
               const SizedBox(width: 8),
-              FilterChip(label: const Text('Expired'), selected: false, onSelected: (v) {}),
+              FilterChip(label: const Text('منقضی'), selected: false, onSelected: (v) {}),
             ],
           ),
         ),
@@ -438,16 +546,16 @@ class MembersScreen extends StatelessWidget {
 
   Widget _buildMemberCard(BuildContext context, int index) {
     final members = [
-      {'name': 'Ali Mohammad', 'phone': '09121234567', 'status': 'Active', 'expiry': '2024/08/15'},
-      {'name': 'Reza Ahmadi', 'phone': '09129876543', 'status': 'Active', 'expiry': '2024/10/20'},
-      {'name': 'Sara Karimi', 'phone': '09125554433', 'status': 'Expiring', 'expiry': '2024/07/25'},
-      {'name': 'Mohammad Hosseini', 'phone': '09121112233', 'status': 'Expired', 'expiry': '2024/07/05'},
-      {'name': 'Zahra Abbasi', 'phone': '09123334455', 'status': 'Active', 'expiry': '2025/01/01'},
+      {'name': 'علی محمدی', 'phone': '۰۹۱۲۱۲۳۴۵۶۷', 'status': 'فعال', 'expiry': '۱۴۰۳/۰۵/۲۴', 'statusEn': 'Active'},
+      {'name': 'رضا احمدی', 'phone': '۰۹۱۲۹۸۷۶۵۴۳', 'status': 'فعال', 'expiry': '۱۴۰۳/۰۷/۲۸', 'statusEn': 'Active'},
+      {'name': 'سارا کریمی', 'phone': '۰۹۱۲۵۵۵۴۴۳۳', 'status': 'در حال انقضا', 'expiry': '۱۴۰۳/۰۴/۰۳', 'statusEn': 'Expiring'},
+      {'name': 'محمد حسینی', 'phone': '۰۹۱۲۱۱۱۲۲۳۳', 'status': 'منقضی', 'expiry': '۱۴۰۳/۰۳/۱۴', 'statusEn': 'Expired'},
+      {'name': 'زهرا عباسی', 'phone': '۰۹۱۲۳۳۳۴۴۵۵', 'status': 'فعال', 'expiry': '۱۴۰۳/۱۰/۱۰', 'statusEn': 'Active'},
     ];
     
     final member = members[index];
-    final isExpired = member['status'] == 'Expired';
-    final isExpiring = member['status'] == 'Expiring';
+    final isExpired = member['statusEn'] == 'Expired';
+    final isExpiring = member['statusEn'] == 'Expiring';
     
     return Card(
       margin: const EdgeInsets.only(bottom: 8),
@@ -457,7 +565,7 @@ class MembersScreen extends StatelessWidget {
           child: Text(member['name']![0], style: const TextStyle(color: Colors.white)),
         ),
         title: Text(member['name']!, style: const TextStyle(fontWeight: FontWeight.w500)),
-        subtitle: Text('Expires: ${member['expiry']}'),
+        subtitle: Text('تاریخ انقضا: ${member['expiry']}'),
         trailing: Container(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
           decoration: BoxDecoration(
@@ -468,7 +576,7 @@ class MembersScreen extends StatelessWidget {
         ),
         onTap: () {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Viewing ${member['name']}')),
+            SnackBar(content: Text('مشاهده ${member['name']}')),
           );
         },
       ),
@@ -490,27 +598,27 @@ class WorkoutsScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Exercise Library', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          const Text('کتابخانه تمرینات', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           const SizedBox(height: 12),
           SizedBox(
             height: 100,
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: [
-                _buildExerciseCategory('Chest', Icons.fitness_center, const Color(0xFF2196F3)),
-                _buildExerciseCategory('Back', Icons.accessibility_new, const Color(0xFF4CAF50)),
-                _buildExerciseCategory('Legs', Icons.directions_run, const Color(0xFFFF9800)),
-                _buildExerciseCategory('Arms', Icons.sports_martial_arts, const Color(0xFF9C27B0)),
-                _buildExerciseCategory('Core', Icons.self_improvement, const Color(0xFF009688)),
+                _buildExerciseCategory('سینه', Icons.fitness_center, const Color(0xFF2196F3)),
+                _buildExerciseCategory('پشت', Icons.accessibility_new, const Color(0xFF4CAF50)),
+                _buildExerciseCategory('پا', Icons.directions_run, const Color(0xFFFF9800)),
+                _buildExerciseCategory('بازو', Icons.sports_martial_arts, const Color(0xFF9C27B0)),
+                _buildExerciseCategory('شکم', Icons.self_improvement, const Color(0xFF009688)),
               ],
             ),
           ),
           const SizedBox(height: 20),
-          const Text('Workout Programs', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          const Text('برنامه‌های تمرینی', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           const SizedBox(height: 12),
-          _buildProgramCard('Strength Training', '4 weeks', '3 days/week', const Color(0xFF2196F3)),
-          _buildProgramCard('Weight Loss', '8 weeks', '5 days/week', const Color(0xFF4CAF50)),
-          _buildProgramCard('Muscle Building', '12 weeks', '4 days/week', const Color(0xFFFF9800)),
+          _buildProgramCard('تمرینات قدرتی', '۴ هفته', '۳ روز در هفته', const Color(0xFF2196F3)),
+          _buildProgramCard('کاهش وزن', '۸ هفته', '۵ روز در هفته', const Color(0xFF4CAF50)),
+          _buildProgramCard('افزایش حجم', '۱۲ هفته', '۴ روز در هفته', const Color(0xFFFF9800)),
         ],
       ),
     );
@@ -570,29 +678,29 @@ class BuffetScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Products', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          const Text('محصولات', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           const SizedBox(height: 12),
           Row(
             children: [
-              Expanded(child: _buildProductCard('Protein Shake', '\$150,000', 'In Stock', const Color(0xFF4CAF50))),
+              Expanded(child: _buildProductCard('پروتئین شیک', '۱۵۰,۰۰۰ تومان', 'موجود', const Color(0xFF4CAF50))),
               const SizedBox(width: 12),
-              Expanded(child: _buildProductCard('Water', '\$10,000', 'In Stock', const Color(0xFF2196F3))),
+              Expanded(child: _buildProductCard('آب معدنی', '۱۰,۰۰۰ تومان', 'موجود', const Color(0xFF2196F3))),
             ],
           ),
           const SizedBox(height: 12),
           Row(
             children: [
-              Expanded(child: _buildProductCard('Banana', '\$25,000', 'Low Stock', const Color(0xFFFF9800))),
+              Expanded(child: _buildProductCard('موز', '۲۵,۰۰۰ تومان', 'کم موجود', const Color(0xFFFF9800))),
               const SizedBox(width: 12),
-              Expanded(child: _buildProductCard('Energy Bar', '\$85,000', 'Out of Stock', const Color(0xFFF44336))),
+              Expanded(child: _buildProductCard('نوار انرژی', '۸۵,۰۰۰ تومان', 'تمام شده', const Color(0xFFF44336))),
             ],
           ),
           const SizedBox(height: 20),
-          const Text('Recent Orders', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          const Text('سفارشات اخیر', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           const SizedBox(height: 12),
-          _buildOrderCard('#1234', 'Ali Mohammad', '\$150,000', 'Completed'),
-          _buildOrderCard('#1235', 'Guest', '\$45,000', 'Pending'),
-          _buildOrderCard('#1236', 'Reza Ahmadi', '\$220,000', 'Preparing'),
+          _buildOrderCard('#۱۲۳۴', 'علی محمدی', '۱۵۰,۰۰۰ تومان', 'تکمیل شده'),
+          _buildOrderCard('#۱۲۳۵', 'مشتری', '۴۵,۰۰۰ تومان', 'در انتظار'),
+          _buildOrderCard('#۱۲۳۶', 'رضا احمدی', '۲۲۰,۰۰۰ تومان', 'در حال آماده‌سازی'),
         ],
       ),
     );
@@ -636,10 +744,10 @@ class BuffetScreen extends StatelessWidget {
   Widget _buildOrderCard(String id, String customer, String total, String status) {
     Color statusColor;
     switch (status) {
-      case 'Completed':
+      case 'تکمیل شده':
         statusColor = const Color(0xFF4CAF50);
         break;
-      case 'Pending':
+      case 'در انتظار':
         statusColor = const Color(0xFFFF9800);
         break;
       default:
@@ -649,7 +757,7 @@ class BuffetScreen extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.only(bottom: 8),
       child: ListTile(
-        title: Text('Order $id', style: const TextStyle(fontWeight: FontWeight.w500)),
+        title: Text('سفارش $id', style: const TextStyle(fontWeight: FontWeight.w500)),
         subtitle: Text('$customer | $total'),
         trailing: Container(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
@@ -678,26 +786,26 @@ class ReportsScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Financial Summary', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          const Text('خلاصه مالی', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           const SizedBox(height: 12),
           Row(
             children: [
-              Expanded(child: _buildSummaryCard('Income', '+\$15,000,000', const Color(0xFF4CAF50))),
+              Expanded(child: _buildSummaryCard('درآمد', '+۱۵,۰۰۰,۰۰۰ تومان', const Color(0xFF4CAF50))),
               const SizedBox(width: 12),
-              Expanded(child: _buildSummaryCard('Expenses', '-\$8,000,000', const Color(0xFFF44336))),
+              Expanded(child: _buildSummaryCard('هزینه‌ها', '-۸,۰۰۰,۰۰۰ تومان', const Color(0xFFF44336))),
             ],
           ),
           const SizedBox(height: 8),
-          _buildSummaryCard('Net Profit', '+\$7,000,000', const Color(0xFF2196F3)),
+          _buildSummaryCard('سود خالص', '+۷,۰۰۰,۰۰۰ تومان', const Color(0xFF2196F3)),
           const SizedBox(height: 20),
-          const Text('Report Types', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          const Text('انواع گزارش', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           const SizedBox(height: 12),
-          _buildReportOption(context, 'Daily Report', Icons.calendar_today),
-          _buildReportOption(context, 'Monthly Report', Icons.calendar_month),
-          _buildReportOption(context, 'Member Report', Icons.people),
-          _buildReportOption(context, 'Attendance Report', Icons.how_to_reg),
-          _buildReportOption(context, 'Export to PDF', Icons.picture_as_pdf),
-          _buildReportOption(context, 'Export to Excel', Icons.table_chart),
+          _buildReportOption(context, 'گزارش روزانه', Icons.calendar_today),
+          _buildReportOption(context, 'گزارش ماهانه', Icons.calendar_month),
+          _buildReportOption(context, 'گزارش اعضا', Icons.people),
+          _buildReportOption(context, 'گزارش حضور', Icons.how_to_reg),
+          _buildReportOption(context, 'خروجی PDF', Icons.picture_as_pdf),
+          _buildReportOption(context, 'خروجی اکسل', Icons.table_chart),
         ],
       ),
     );
@@ -712,7 +820,7 @@ class ReportsScreen extends StatelessWidget {
           children: [
             Text(title, style: TextStyle(fontSize: 14, color: Colors.grey[600])),
             const SizedBox(height: 8),
-            Text(value, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: color)),
+            Text(value, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: color)),
           ],
         ),
       ),
@@ -728,7 +836,7 @@ class ReportsScreen extends StatelessWidget {
         trailing: const Icon(Icons.chevron_left),
         onTap: () {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Generating $title...')),
+            SnackBar(content: Text('تولید $title...')),
           );
         },
       ),
