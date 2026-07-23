@@ -26,6 +26,7 @@
 <div align="center">
   <img src="screenshots/dash.jpg" alt="میدریت باشگاه دانیال " width="800"/>
 </div>
+---
 ### ✨ ویژگی‌های کلیدی
 
 | ویژگی | توضیح |
